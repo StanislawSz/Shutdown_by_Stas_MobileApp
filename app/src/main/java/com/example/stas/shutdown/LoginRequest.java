@@ -1,4 +1,4 @@
-package com.example.stas.polaczeniebaza;
+package com.example.stas.shutdown;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -8,19 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Stas on 17.07.2017.
+ * Created by Stas on 24.07.2017.
  */
 
 public class LoginRequest extends StringRequest
 {
-    private static final String LOGIN_REQUEST_URL = "http://stasio.000webhostapp.com/Login.php";
+    private static final String LOGIN_REQUEST_URL = "http://stasio.000webhostapp.com/ShutdownLogowanie.php";
     private Map<String, String> params;
 
-    public LoginRequest(String username, String password, Response.Listener<String> listener)
+    public LoginRequest(String login, String password, Response.Listener<String> listener)
     {
         super(Request.Method.POST, LOGIN_REQUEST_URL, listener, null);
         params = new HashMap<>();
-        params.put("username", username);
+        params.put("login", login);
         params.put("password", password);
 
     }
@@ -29,4 +29,5 @@ public class LoginRequest extends StringRequest
     public Map<String, String> getParams() {
         return params;
     }
+
 }

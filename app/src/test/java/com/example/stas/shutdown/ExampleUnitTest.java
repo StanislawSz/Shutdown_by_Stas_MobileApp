@@ -1,4 +1,4 @@
-package com.example.stas.polaczeniebaza;
+package com.example.stas.shutdown;
 
 import org.junit.Test;
 

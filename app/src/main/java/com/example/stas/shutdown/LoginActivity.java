@@ -1,9 +1,11 @@
-package com.example.stas.polaczeniebaza;
+package com.example.stas.shutdown;
 
 import android.content.Intent;
+import android.opengl.ETC1;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,25 +25,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUserName);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
+        final Button buttonZaloguj = (Button) findViewById(R.id.buttonZaloguj);
+        final EditText etLogin = (EditText) findViewById(R.id.etLogin);
+        final EditText etHaslo = (EditText) findViewById(R.id.etHaslo);
 
-        registerLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
-            }
-        });
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonZaloguj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
+                final String login = etLogin.getText().toString();
+                final String password = etHaslo.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>()
                 {
@@ -53,13 +46,12 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(success)
                             {
-                                String name = jsonResponse.getString("name");
-                                int age = jsonResponse.getInt("age");
 
-                                Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                                intent.putExtra("name", name);
-                                intent.putExtra("username", username);
-                                intent.putExtra("age", age);
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("login", login);
+//                                intent.putExtra("password", password);
+
 
                                 LoginActivity.this.startActivity(intent);
                             }
@@ -78,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
 
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                LoginRequest loginRequest = new LoginRequest(login, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }
